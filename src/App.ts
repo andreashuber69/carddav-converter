@@ -1,4 +1,3 @@
-// tslint:disable-next-line:no-var-requires no-require-imports
 import * as dav from "dav";
 
 class App {
