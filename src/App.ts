@@ -14,6 +14,7 @@ class App {
             const client = new dav.Client(xhr);
             const account = await client.createAccount({
                 server: "http://192.168.178.36/owncloud/remote.php/dav/",
+                // cSpell: ignore carddav
                 accountType: "carddav",
             });
 
