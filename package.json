@@ -1,0 +1,38 @@
+{
+  "name": "carddav-converter",
+  "author": {
+    "name": "Andreas Huber Dönni"
+  },
+  "keywords": [
+    "carddav",
+    "converter"
+  ],
+  "description": "",
+  "homepage": "https://github.com/andreashuber69/carddav-converter/blob/master/README.md#--",
+  "version": "1.0.0",
+  "license": "Unlicense",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreashuber69/carddav-converter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/andreashuber69/carddav-converter/issues"
+  },
+  "private": true,
+  "main": "src/App.ts",
+  "scripts": {
+    "start": "ts-node src/App.ts",
+    "prelint": "cspell '**/*.*' && markdownlint *.md",
+    "lint": "tslint --project tsconfig.json --config tslint.json --format verbose",
+    "ci": "npm run lint"
+  },
+  "devDependencies": {
+    "@types/node": "^8.10.39",
+    "cspell": "^3.1.3",
+    "markdownlint-cli": "^0.13.0",
+    "ts-node": "^8.0.2",
+    "tslib": "^1.9.3",
+    "tslint": "^5.12.1",
+    "typescript": "^3.2.4"
+  }
+}
