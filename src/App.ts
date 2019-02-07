@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-var-requires no-require-imports
-const dav = require("dav");
+import * as dav from "dav";
 
 class App {
     public static async main() {
