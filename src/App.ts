@@ -1,6 +1,28 @@
+// tslint:disable-next-line:no-var-requires no-require-imports
+const dav = require("dav");
+
 class App {
     public static async main() {
-        return 0;
+        try {
+            const xhr = new dav.transport.Basic(
+                new dav.Credentials({
+                    username: "test",
+                    password: "test",
+                }),
+            );
+
+            const client = new dav.Client(xhr);
+            const account = await client.createAccount({
+                server: "http://192.168.178.36/owncloud/remote.php/dav/",
+                accountType: "carddav",
+            });
+
+            return 0;
+        } catch (e) {
+            console.log(e);
+
+            return 1;
+        }
     }
 }
 
