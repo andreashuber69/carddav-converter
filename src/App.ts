@@ -11,11 +11,19 @@ class App {
             );
 
             const client = new dav.Client(xhr);
-            const account = await client.createAccount({
+            const { addressBooks } = await client.createAccount({
                 server: "http://192.168.178.36/owncloud/remote.php/dav/",
                 // cSpell: ignore carddav
                 accountType: "carddav",
             });
+
+            if (addressBooks && (addressBooks.length > 0)) {
+                const { objects } = await dav.syncAddressBook(addressBooks[0], { xhr });
+
+                for (const card of objects) {
+                    console.log(card);
+                }
+            }
 
             return 0;
         } catch (e) {
