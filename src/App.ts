@@ -75,6 +75,7 @@ class App {
             Home && `TEL;TYPE=HOME,VOICE:${Home}`,
             Work && `TEL;TYPE=WORK,VOICE:${Work}`,
             homeAddress && `ADR;TYPE=;;${homeAddress};;;;`,
+            // cSpell: ignore vcard
             "END:VCARD",
         ].filter((line) => !!line).join("\n");
     }
