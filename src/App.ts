@@ -19,7 +19,7 @@ class App {
             });
 
             if (!addressBooks || !addressBooks.length) {
-                return 1;
+                throw new Error("No address books found!");
             }
 
             const addressBook = addressBooks[0];
