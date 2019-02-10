@@ -2,6 +2,7 @@ import { readFile } from "fs";
 
 export interface IAddress {
     readonly First?: string;
+    readonly Middle?: string;
     readonly Last?: string;
     readonly Email?: string;
     readonly Category?: string;
@@ -11,6 +12,7 @@ export interface IAddress {
     readonly "Alternate Email 1"?: string;
     readonly "Alternate Email 2"?: string;
     readonly "Home Address"?: string;
+    readonly Company?: string;
     [key: string]: string | undefined;
 }
 

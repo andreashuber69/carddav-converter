@@ -52,6 +52,7 @@ class App {
 
     private static createCard({
         First,
+        Middle,
         Last,
         Category,
         Home,
@@ -61,12 +62,15 @@ class App {
         "Alternate Email 1": workEmail,
         "Alternate Email 2": alternateHomeEmail,
         "Home Address": homeAddress,
+        Company,
     }: IAddress) {
         return [
+            // cSpell: ignore vcard
             "BEGIN:VCARD",
             "VERSION:3.0",
-            (First || Last) && `FN:${[ First, Last ].filter((name) => !!name).join(" ")}`,
-            (First || Last) && `N:${Last};${First};;;`,
+            (First || Middle || Last) && `FN:${[ First, Middle, Last ].filter((name) => !!name).join(" ")}`,
+            (First || Middle || Last) && `N:${Last};${First};${Middle};;`,
+            Company && `ORG:${Company}`,
             Category && `CATEGORIES:${Category}`,
             Email && `EMAIL;TYPE=HOME:${Email}`,
             alternateHomeEmail && `EMAIL;TYPE=HOME:${alternateHomeEmail}`,
@@ -75,7 +79,6 @@ class App {
             Home && `TEL;TYPE=HOME,VOICE:${Home}`,
             Work && `TEL;TYPE=WORK,VOICE:${Work}`,
             homeAddress && `ADR;TYPE=;;${homeAddress};;;;`,
-            // cSpell: ignore vcard
             "END:VCARD",
         ].filter((line) => !!line).join("\n");
     }
