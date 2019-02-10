@@ -1,39 +1,15 @@
-import { AddressBook, Client, Credentials, syncAddressBook, transport } from "dav";
+import { AddressBook, Client, Credentials, transport } from "dav";
 import { AddressParser, IAddress } from "./AddressParser";
 
 class App {
     public static async main() {
         try {
-            const xhr = new transport.Basic(
-                new Credentials({
-                    username: "test",
-                    password: "test",
-                }),
-            );
-
-            const client = new Client(xhr);
-            const { addressBooks } = await client.createAccount({
-                server: "http://192.168.178.36/owncloud/remote.php/dav/",
-                // cSpell: ignore carddav
-                accountType: "carddav",
-            });
-
-            if (!addressBooks || !addressBooks.length) {
-                throw new Error("No address books found!");
-            }
-
-            const addressBook = addressBooks[0];
-
-            // await this.addToOwnCloud(
-            //     client,
-            //     addressBook,
-            //     await AddressParser.parse("/home/andreas/git/addresses-ruth/yahoo_contacts.csv"));
-
-            const { objects } = await syncAddressBook(addressBook, { xhr });
-
-            for (const card of objects) {
-                console.log(card.addressData);
-            }
+            const client = new Client(new transport.Basic(new Credentials({ username: "test", password: "test" })));
+            const addressBook = await App.getAddressBook(client);
+            await App.deleteAllCards(client, addressBook);
+            const importedAddresses = await AddressParser.parse("/home/andreas/git/addresses-ruth/yahoo_contacts.csv");
+            await this.addToOwnCloud(client, addressBook, importedAddresses);
+            App.displayAllCards(client, addressBook);
 
             return 0;
         } catch (e) {
@@ -41,6 +17,34 @@ class App {
 
             return 1;
         }
+    }
+
+    private static async deleteAllCards(client: Client, addressBook: AddressBook) {
+        const { objects: cards } = await client.syncAddressBook(addressBook);
+
+        for (const card of cards) {
+            await client.deleteCard(card);
+        }
+    }
+
+    private static async displayAllCards(client: Client, addressBook: AddressBook) {
+        const { objects: cards } = await client.syncAddressBook(addressBook);
+
+        for (const card of cards) {
+            console.log(card.addressData);
+        }
+    }
+
+    private static async getAddressBook(client: Client) {
+        const server = "http://192.168.178.36/owncloud/remote.php/dav/";
+        // cSpell: ignore carddav
+        const { addressBooks } = await client.createAccount({ server, accountType: "carddav" });
+
+        if (!addressBooks || !addressBooks.length) {
+            throw new Error("No address books found!");
+        }
+
+        return addressBooks[0];
     }
 
     private static async addToOwnCloud(client: Client, addressBook: AddressBook, addresses: IAddress[]) {
