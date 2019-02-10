@@ -1,17 +1,17 @@
-import * as dav from "dav";
+import { AddressBook, Client, Credentials, syncAddressBook, transport } from "dav";
 import { AddressParser, IAddress } from "./AddressParser";
 
 class App {
     public static async main() {
         try {
-            const xhr = new dav.transport.Basic(
-                new dav.Credentials({
+            const xhr = new transport.Basic(
+                new Credentials({
                     username: "test",
                     password: "test",
                 }),
             );
 
-            const client = new dav.Client(xhr);
+            const client = new Client(xhr);
             const { addressBooks } = await client.createAccount({
                 server: "http://192.168.178.36/owncloud/remote.php/dav/",
                 // cSpell: ignore carddav
@@ -29,7 +29,7 @@ class App {
             //     addressBook,
             //     await AddressParser.parse("/home/andreas/git/addresses-ruth/yahoo_contacts.csv"));
 
-            const { objects } = await dav.syncAddressBook(addressBook, { xhr });
+            const { objects } = await syncAddressBook(addressBook, { xhr });
 
             for (const card of objects) {
                 console.log(card.addressData);
@@ -43,7 +43,7 @@ class App {
         }
     }
 
-    private static async addToOwnCloud(client: dav.Client, addressBook: dav.AddressBook, addresses: IAddress[]) {
+    private static async addToOwnCloud(client: Client, addressBook: AddressBook, addresses: IAddress[]) {
         for (let index = 0; index < addresses.length; ++index) {
             const data = this.createCard(addresses[index]);
             await client.createCard(addressBook, { data, filename: `${index}.vcf`});
