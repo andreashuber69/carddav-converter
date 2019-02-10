@@ -65,8 +65,8 @@ class App {
         return [
             "BEGIN:VCARD",
             "VERSION:3.0",
-            `FN:${[ First, Last ].filter((name) => !!name).join(" ")}`,
-            `N:${Last};${First};;;`,
+            (First || Last) && `FN:${[ First, Last ].filter((name) => !!name).join(" ")}`,
+            (First || Last) && `N:${Last};${First};;;`,
             Category && `CATEGORIES:${Category}`,
             Email && `EMAIL;TYPE=HOME:${Email}`,
             alternateHomeEmail && `EMAIL;TYPE=HOME:${alternateHomeEmail}`,
