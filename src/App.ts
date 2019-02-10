@@ -9,7 +9,7 @@ class App {
             await App.deleteAllCards(client, addressBook);
             const importedAddresses = await AddressParser.parse("/home/andreas/git/addresses-ruth/yahoo_contacts.csv");
             await this.addToOwnCloud(client, addressBook, importedAddresses);
-            App.displayAllCards(client, addressBook);
+            await App.displayAllCards(client, addressBook);
 
             return 0;
         } catch (e) {
