@@ -1,18 +1,27 @@
 import { readFile } from "fs";
 
 export interface IAddress {
-    readonly First?: string;
-    readonly Middle?: string;
-    readonly Last?: string;
-    readonly Email?: string;
-    readonly Category?: string;
-    readonly Home?: string;
-    readonly Work?: string;
-    readonly Mobile?: string;
-    readonly "Alternate Email 1"?: string;
-    readonly "Alternate Email 2"?: string;
-    readonly "Home Address"?: string;
+    readonly "First Name"?: string;
+    readonly "Middle Name"?: string;
+    readonly "Last Name"?: string;
+    readonly Title?: string;
+    readonly "E-mail Address"?: string;
+    readonly "E-mail 2 Address"?: string;
+    readonly "Home Phone"?: string;
+    readonly "Business Phone"?: string;
+    readonly "Mobile Phone"?: string;
+    readonly "Other Phone"?: string;
     readonly Company?: string;
+    readonly "Business Street"?: string;
+    readonly "Business City"?: string;
+    readonly "Business State"?: string;
+    readonly "Business Postal Code"?: string;
+    readonly "Business Country/Region"?: string;
+    readonly "Home Street"?: string;
+    readonly "Home City"?: string;
+    readonly "Home State"?: string;
+    readonly "Home Postal Code"?: string;
+    readonly "Home Country/Region"?: string;
     [key: string]: string | undefined;
 }
 

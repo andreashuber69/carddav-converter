@@ -7,7 +7,8 @@ class App {
             const client = new Client(new transport.Basic(new Credentials({ username: "test", password: "test" })));
             const addressBook = await App.getAddressBook(client);
             await App.deleteAllCards(client, addressBook);
-            const importedAddresses = await AddressParser.parse("/home/andreas/git/addresses-ruth/yahoo_contacts.csv");
+            const importedAddresses =
+                await AddressParser.parse("/home/andreas/git/addresses-ruth/outlook_contacts.csv");
             await this.addToOwnCloud(client, addressBook, importedAddresses);
             await App.displayAllCards(client, addressBook);
 
@@ -54,37 +55,53 @@ class App {
         }
     }
 
-    private static createCard({
-        First,
-        Middle,
-        Last,
-        Category,
-        Home,
-        Work,
-        Mobile,
-        Email,
-        "Alternate Email 1": workEmail,
-        "Alternate Email 2": alternateHomeEmail,
-        "Home Address": homeAddress,
-        Company,
-    }: IAddress) {
+    private static createCard(address: IAddress) {
+        const {
+            "First Name": first,
+            "Middle Name": middle,
+            "Last Name": last,
+            Title: title,
+            "E-mail Address": homeEmail,
+            "E-mail 2 Address": workEmail,
+            "Home Phone": homePhone,
+            "Business Phone": workPhone,
+            "Mobile Phone": mobilePhone,
+            "Other Phone": otherPhone,
+            Company: company,
+            "Business Street": workStreet,
+            "Business City": workCity,
+            "Business State": workState,
+            "Business Postal Code": workZip,
+            "Business Country/Region": workCountry,
+            "Home Street": homeStreet,
+            "Home City": homeCity,
+            "Home State": homeState,
+            "Home Postal Code": homeZip,
+            "Home Country/Region": homeCountry,
+        } = address;
+
         return [
             // cSpell: ignore vcard
             "BEGIN:VCARD",
             "VERSION:3.0",
-            (First || Middle || Last) && `FN:${[ First, Middle, Last ].filter((name) => !!name).join(" ")}`,
-            (First || Middle || Last) && `N:${Last};${First};${Middle};;`,
-            Company && `ORG:${Company}`,
-            Category && `CATEGORIES:${Category}`,
-            Email && `EMAIL;TYPE=HOME:${Email}`,
-            alternateHomeEmail && `EMAIL;TYPE=HOME:${alternateHomeEmail}`,
-            workEmail && `EMAIL;TYPE=HOME:${workEmail}`,
-            Mobile && `TEL;TYPE=CELL:${Mobile}`,
-            Home && `TEL;TYPE=HOME,VOICE:${Home}`,
-            Work && `TEL;TYPE=WORK,VOICE:${Work}`,
-            homeAddress && `ADR;TYPE=;;${homeAddress};;;;`,
+            (first || middle || last || title) && `N:${last};${first};${middle};${title};`,
+            company && `ORG:${company}`,
+            homeEmail && `EMAIL;TYPE=home:${homeEmail}`,
+            workEmail && `EMAIL;TYPE=work:${workEmail}`,
+            mobilePhone && `TEL;TYPE=cell:${mobilePhone}`,
+            homePhone && `TEL;TYPE=home,voice:${homePhone}`,
+            workPhone && `TEL;TYPE=work,voice:${workPhone}`,
+            this.createAddress("home", [ homeStreet, homeCity, homeState, homeZip, homeCountry ]),
+            this.createAddress("work", [ workStreet, workCity, workState, workZip, workCountry ]),
             "END:VCARD",
         ].filter((line) => !!line).join("\n");
+    }
+
+    private static createAddress(
+        type: "home" | "work",
+        [ street, city, state, zip, country ]: [ string?, string?, string?, string?, string? ]) {
+        return (street || city || state || zip || country) &&
+            `ADR;TYPE=${type}:;;${street};${city};${state};${zip};${country}`;
     }
 }
 
