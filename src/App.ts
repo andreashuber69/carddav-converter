@@ -78,6 +78,7 @@ class App {
             "Home State": homeState,
             "Home Postal Code": homeZip,
             "Home Country/Region": homeCountry,
+            Notes: notes,
         } = address;
 
         return [
@@ -93,6 +94,7 @@ class App {
             workPhone && `TEL;TYPE=work,voice:${workPhone}`,
             this.createAddress("home", [ homeStreet, homeCity, homeState, homeZip, homeCountry ]),
             this.createAddress("work", [ workStreet, workCity, workState, workZip, workCountry ]),
+            notes && `NOTE:${notes}`,
             "END:VCARD",
         ].filter((line) => !!line).join("\n");
     }

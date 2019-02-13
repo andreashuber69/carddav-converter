@@ -22,6 +22,10 @@ export interface IAddress {
     readonly "Home State"?: string;
     readonly "Home Postal Code"?: string;
     readonly "Home Country/Region"?: string;
+    readonly Notes?: string;
+}
+
+interface IWriteableAddress extends IAddress {
     [key: string]: string | undefined;
 }
 
@@ -53,7 +57,7 @@ export class AddressParser {
             return undefined;
         }
 
-        const address: IAddress = {};
+        const address: IWriteableAddress = {};
 
         for (let valueIndex = 0; valueIndex < values.length; ++valueIndex) {
             address[identifiers[valueIndex]] = values[valueIndex];
