@@ -3,12 +3,12 @@
   "extends": "tslint:all",
   "rulesDirectory": [],
   "rules": {
-    "comment-format": [ true, "check-space" ],
+    "comment-format": [true, "check-space"],
     "completed-docs": false,
-    "file-name-casing": [ true, "pascal-case" ],
+    "file-name-casing": [true, "pascal-case"],
     "increment-decrement": false,
     "jsdoc-format": true,
-    "max-line-length": { "options": [ 120 ] },
+    "max-line-length": { "options": [120] },
     "member-ordering": [
       true,
       {
@@ -36,10 +36,10 @@
     "no-bitwise": false,
     "no-conditional-assignment": false,
     "no-console": false,
-    "no-implicit-dependencies": [ true, "dev" ],
+    "no-implicit-dependencies": [true, "dev"],
     "no-magic-numbers": false,
     "no-parameter-properties": false,
-    "no-unnecessary-class": [ "allow-static-only" ],
+    "no-unnecessary-class": ["allow-static-only"],
     "no-unused-variable": false,
     "no-void-expression": false,
     "object-literal-sort-keys": false,
@@ -48,6 +48,6 @@
     "typedef": false
   },
   "jsRules": {
-    "max-line-length": { "options": [ 120 ] }
+    "max-line-length": { "options": [120] }
   }
 }
