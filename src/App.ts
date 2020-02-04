@@ -51,7 +51,7 @@ class App {
     private static async addToOwnCloud(client: Client, addressBook: AddressBook, addresses: IAddress[]) {
         for (let index = 0; index < addresses.length; ++index) {
             const data = this.createCard(addresses[index]);
-            await client.createCard(addressBook, { data, filename: `${index}.vcf`});
+            await client.createCard(addressBook, { data, filename: `${index}.vcf` });
         }
     }
 
@@ -92,8 +92,8 @@ class App {
             mobilePhone && `TEL;TYPE=cell:${this.formatPhoneNumber(mobilePhone)}`,
             homePhone && `TEL;TYPE=home,voice:${this.formatPhoneNumber(homePhone)}`,
             workPhone && `TEL;TYPE=work,voice:${this.formatPhoneNumber(workPhone)}`,
-            this.createAddress("home", [ homeStreet, homeCity, homeState, homeZip, homeCountry ]),
-            this.createAddress("work", [ workStreet, workCity, workState, workZip, workCountry ]),
+            this.createAddress("home", [homeStreet, homeCity, homeState, homeZip, homeCountry]),
+            this.createAddress("work", [workStreet, workCity, workState, workZip, workCountry]),
             notes && `NOTE:${notes}`,
             "END:VCARD",
         ].filter((line) => !!line).join("\n");
@@ -117,7 +117,7 @@ class App {
 
     private static createAddress(
         type: "home" | "work",
-        [ street, city, state, zip, country ]: [ string?, string?, string?, string?, string? ]) {
+        [street, city, state, zip, country]: [string?, string?, string?, string?, string?]) {
         return (street || city || state || zip || country) &&
             `ADR;TYPE=${type}:;;${street};${city};${state};${zip};${country}`;
     }
