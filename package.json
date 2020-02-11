@@ -27,8 +27,8 @@
     "ci": "npm run lint"
   },
   "devDependencies": {
-    "cspell": "^3.1.3",
-    "markdownlint-cli": "^0.13.0",
+    "cspell": "^4.0.46",
+    "markdownlint-cli": "^0.22.0",
     "tslint": "^5.12.1"
   },
   "dependencies": {
