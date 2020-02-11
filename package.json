@@ -29,7 +29,7 @@
   "devDependencies": {
     "cspell": "^4.0.46",
     "markdownlint-cli": "^0.22.0",
-    "tslint": "^5.12.1"
+    "tslint": "^6.0.0"
   },
   "dependencies": {
     "@types/dav": "^1.7.0",

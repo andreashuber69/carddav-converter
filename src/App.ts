@@ -1,4 +1,5 @@
 import { AddressBook, Client, Credentials, transport } from "dav";
+
 import { AddressParser, IAddress } from "./AddressParser";
 
 class App {
@@ -9,7 +10,7 @@ class App {
             await App.deleteAllCards(client, addressBook);
             const importedAddresses =
                 await AddressParser.parse("/home/andreas/git/addresses-ruth/outlook_contacts.csv");
-            await this.addToOwnCloud(client, addressBook, importedAddresses);
+            await App.addToOwnCloud(client, addressBook, importedAddresses);
             await App.displayAllCards(client, addressBook);
 
             return 0;
@@ -50,7 +51,7 @@ class App {
 
     private static async addToOwnCloud(client: Client, addressBook: AddressBook, addresses: IAddress[]) {
         for (let index = 0; index < addresses.length; ++index) {
-            const data = this.createCard(addresses[index]);
+            const data = App.createCard(addresses[index]);
             await client.createCard(addressBook, { data, filename: `${index}.vcf` });
         }
     }
@@ -89,11 +90,11 @@ class App {
             company && `ORG:${company}`,
             homeEmail && `EMAIL;TYPE=home:${homeEmail}`,
             workEmail && `EMAIL;TYPE=work:${workEmail}`,
-            mobilePhone && `TEL;TYPE=cell:${this.formatPhoneNumber(mobilePhone)}`,
-            homePhone && `TEL;TYPE=home,voice:${this.formatPhoneNumber(homePhone)}`,
-            workPhone && `TEL;TYPE=work,voice:${this.formatPhoneNumber(workPhone)}`,
-            this.createAddress("home", [homeStreet, homeCity, homeState, homeZip, homeCountry]),
-            this.createAddress("work", [workStreet, workCity, workState, workZip, workCountry]),
+            mobilePhone && `TEL;TYPE=cell:${App.formatPhoneNumber(mobilePhone)}`,
+            homePhone && `TEL;TYPE=home,voice:${App.formatPhoneNumber(homePhone)}`,
+            workPhone && `TEL;TYPE=work,voice:${App.formatPhoneNumber(workPhone)}`,
+            App.createAddress("home", [homeStreet, homeCity, homeState, homeZip, homeCountry]),
+            App.createAddress("work", [workStreet, workCity, workState, workZip, workCountry]),
             notes && `NOTE:${notes}`,
             "END:VCARD",
         ].filter((line) => !!line).join("\n");

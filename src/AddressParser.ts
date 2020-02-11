@@ -31,7 +31,7 @@ interface IWriteableAddress extends IAddress {
 
 export class AddressParser {
     public static async parse(path: string): Promise<IAddress[]> {
-        const content = await this.readFile(path);
+        const content = await AddressParser.readFile(path);
         const lines = content.split(/\r\n|\r|\n/);
 
         if (lines.length < 2) {
