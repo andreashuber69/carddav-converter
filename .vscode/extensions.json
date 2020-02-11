@@ -1,7 +1,9 @@
 {
   "recommendations": [
     "davidanson.vscode-markdownlint",
+    "eamodio.gitlens",
     "eg2.vscode-npm-script",
+    "mechatroner.rainbow-csv",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "streetsidesoftware.code-spell-checker"
   ]
