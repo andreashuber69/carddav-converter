@@ -35,7 +35,7 @@
     "@types/dav": "^1.7.1",
     "@types/node": "^10.17.14",
     "dav": "^1.8.0",
-    "ts-node": "^8.0.2",
-    "typescript": "^3.3.3"
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   }
 }
