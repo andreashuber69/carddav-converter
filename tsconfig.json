@@ -11,8 +11,5 @@
     "module": "commonjs",
     "sourceMap": true,
     "target": "es2017"
-  },
-  "include": [
-    "src/App.ts"
-  ]
+  }
 }
