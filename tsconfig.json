@@ -2,7 +2,7 @@
   "compilerOptions": {
     // Compilation options
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2017"],
+    "lib": [],
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "strict": true,
